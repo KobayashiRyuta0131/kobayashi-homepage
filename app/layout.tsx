@@ -23,11 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="ja">
+      <body>
+        <header>ナビゲーションバー</header>
         {children}
+        <footer>© 2025 Ryuta Kobayashi</footer>
       </body>
     </html>
   );
