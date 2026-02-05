@@ -17,9 +17,12 @@ async function fetchSheetAsCSV(
     const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=csv&gid=${sheetGid}`;
     console.log("Fetching CSV from sheet gid:", sheetGid);
 
-    const response = await fetch(csvUrl, {
-      headers: { "User-Agent": "Mozilla/5.0" },
-    });
+    const response = await fetch(
+      csvUrl,
+      typeof window === "undefined"
+        ? { headers: { "User-Agent": "Mozilla/5.0" } }
+        : undefined
+    );
 
     if (!response.ok) {
       console.warn(`CSV fetch failed for gid ${sheetGid}: ${response.status}`);

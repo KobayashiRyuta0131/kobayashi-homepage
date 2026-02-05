@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ResumeData } from "@/types/resume";
+import { fetchResumeData } from "@/lib/sheets";
 
 const SAMPLE_DATA: ResumeData = {
   basicInfo: {
@@ -34,11 +35,10 @@ export function useResumeData() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/resume");
-        if (!response.ok) {
-          throw new Error(`API returned ${response.status}`);
-        }
-        const data = await response.json();
+        const spreadsheetId =
+          process.env.NEXT_PUBLIC_SPREADSHEET_ID ||
+          "1OppbWzvUt7g5owjf8HZearJDm0wzNHlN";
+        const data = await fetchResumeData(spreadsheetId);
         setResumeData(data);
         setError(null);
       } catch (err) {
